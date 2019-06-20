@@ -1,0 +1,67 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            var sendOutput = function(result) {
+                var resultJson = {
+                    "count": result
+                };
+                console.log("resultJson : " +  resultJson);
+                $.ajax({
+                    type: "POST",
+                    url: 'https://http-hunt.thoughtworks-labs.net/challenge/output',
+                    headers: {
+                        'userId': 'DDOg-BKfQ'
+                    },
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: JSON.stringify(resultJson),
+                    success: function(data) {
+
+                        console.log("send Output success response");
+                        console.log(data);
+
+                    },
+                    complete: function(data) {
+                        console.log("send Output complete response: " + data);
+                    }
+                });
+            }
+
+            $("button").click(function() {
+
+                $.ajax({
+                    type: "GET",
+                    url: 'https://http-hunt.thoughtworks-labs.net/challenge/input',
+                    headers: {
+                        'userId': 'DDOg-BKfQ'
+                    },
+                    success: function(data) {
+                        console.log("get Input response");
+                        console.log(data);
+                        sendOutput(data.length);
+                    },
+                    complete: function(data) {
+                        console.log("get input complete response: " + data);
+                    }
+
+                });
+
+            });
+
+
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <button>Fire!!!</button>
+
+</body>
+
+</html>
